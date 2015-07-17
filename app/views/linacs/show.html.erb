@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @linac.name %>
+</p>
+
+<p>
+  <strong>User group:</strong>
+  <%= @linac.user_group_id %>
+</p>
+
+<%= link_to 'Edit', edit_linac_path(@linac) %> |
+<%= link_to 'Back', linacs_path %>

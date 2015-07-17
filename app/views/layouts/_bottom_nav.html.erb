@@ -1,0 +1,9 @@
+<div class="bottom-nav-link"><%= link_to "Linacs", linacs_path, :class => "" %></div>
+<div class="bottom-nav-link"><%= link_to "Users", users_path, :class => "" %></div>
+
+<% if user_signed_in? %>
+  <div class="bottom-nav-link"><%= link_to "Sign Out", destroy_user_session_path, method: :delete %></div>
+<% else %>
+  <div class="bottom-nav-link"><%= link_to "Sign In", '/users/sign_in', :class => "" %></div>
+  <div class="bottom-nav-link"><%= link_to "Register", new_user_registration_path, :class => "" %></div>
+<% end %>

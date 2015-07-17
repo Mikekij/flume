@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  starttime: 2015-07-17 08:37:40
+  endtime: 2015-07-17 08:37:40
+  duration: 1
+  linac_id: 1
+  created_by_user_id: 
+  description: MyText
+
+two:
+  starttime: 2015-07-17 08:37:40
+  endtime: 2015-07-17 08:37:40
+  duration: 1
+  linac_id: 1
+  created_by_user_id: 
+  description: MyText

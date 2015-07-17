@@ -15,5 +15,5 @@
 //= require turbolinks
 //= require_tree .
 //= require highcharts
-//= require jquery
 //= require bootstrap-sprockets
+//= require rainbow

@@ -1,0 +1,35 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Starttime:</strong>
+  <%= @event.starttime %>
+</p>
+
+<p>
+  <strong>Endtime:</strong>
+  <%= @event.endtime %>
+</p>
+
+<p>
+  <strong>Duration:</strong>
+  <%= @event.duration %>
+</p>
+
+<p>
+  <strong>Linac:</strong>
+  <%= Linac.find(@event.linac_id).name %>
+</p>
+
+<p>
+  <strong>Created by user:</strong>
+  <% @user = User.find(@event.created_by_user_id)%>
+  <%= @user.first_name  %> <%= @user.last_name  %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @event.description %>
+</p>
+
+<%= link_to 'Edit', edit_event_path(@event) %> |
+<%= link_to 'Back', events_path %>

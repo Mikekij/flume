@@ -1,3 +1,18 @@
+$f-green: #92CA8A;
+$f-blue: #4FA8C7;
+$f-light-blue: rgba(79,168,199,0.1);
+$f-dark-grey: #393939;
+$f-grey: #5D5D5D;
+$f-light-grey: #A2A2A2;
+$f-almost-white: #F7F7F7;
+
+h1 {
+	color:$f-grey;
+}
+
+.main-container {
+  padding-bottom:20px;
+}
 .graph_1_container {
   min-height:350px;
 //  background-color:#526FFF;
@@ -12,12 +27,35 @@
 
 .events_div {
   min-height:200px;
-  background-color:#C92F30;
+  background-color:$f-almost-white;
   margin-top:5px;
 }
 
-
 .app-title {
+	float:left;
+	font-size:2em;
+	color:$f-green;
   height:80px;
   padding-top:10px;
+}
+
+.bottom-nav-link {
+  padding-right:10px;
+  float:left;
+}
+
+.bottom-nav-link-right {
+  padding-left:10px;
+  float:right;
+}
+
+.stats_div {
+	float:left;
+	padding-right: 5px;
+}
+
+.linac_stats {
+	padding-top:20px;
+	padding-bottom:20px;
+	margin-bottom:20px;
 }
