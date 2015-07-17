@@ -15,7 +15,7 @@
   <tbody>
     <% @users.each do |user| %>
       <tr>
-        <td><%= UserGroup.find(user.user_group_id).name %></td>
+        <td><%= UserGroup.find(user.user_group_id).name unless user.user_group_id.nil? %></td>
         <td><%= user.first_name %></td>
         <td><%= user.last_name %></td>
         <td><%= link_to 'Show', user %></td>

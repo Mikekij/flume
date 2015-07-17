@@ -1,6 +1,8 @@
 class Linac < ActiveRecord::Base
 
   has_many :events
+  belongs_to :user_group
+  
 
   def format_events_data
     #init blank results array

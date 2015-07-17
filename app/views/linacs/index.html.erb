@@ -15,7 +15,7 @@
     <% @linacs.each do |linac| %>
       <tr>
         <td><%= linac.name %></td>
-        <td><%= linac.user_group_id %></td>
+        <td><%= UserGroup.find(linac.user_group_id).name %></td>
         <td><%= link_to 'Show', linac %></td>
         <td><%= link_to 'Edit', edit_linac_path(linac) %></td>
         <td><%= link_to 'Destroy', linac, method: :delete, data: { confirm: 'Are you sure?' } %></td>

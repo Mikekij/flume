@@ -9,8 +9,8 @@ class Event < ActiveRecord::Base
     self.duration = duration
   end
 
-  def self.pareto_data
-    @events = Event.all.order('duration DESC')
+  def self.pareto_data(events)
+    @events = events.reorder('duration DESC')
 
     total_downtime = 0 #in seconds
 

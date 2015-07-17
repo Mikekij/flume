@@ -1,5 +1,8 @@
 <div class="bottom-nav-link"><%= link_to "Linacs", linacs_path, :class => "" %></div>
-<div class="bottom-nav-link"><%= link_to "Users", users_path, :class => "" %></div>
+
+<% if current_user.admin? %>
+  <div class="bottom-nav-link"><%= link_to "Users", users_path, :class => "" %></div>
+<% end %>
 
 <% if user_signed_in? %>
   <div class="bottom-nav-link"><%= link_to "Sign Out", destroy_user_session_path, method: :delete %></div>

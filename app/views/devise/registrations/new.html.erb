@@ -18,10 +18,12 @@
     <%= f.text_field :last_name %>
   </div>
 
+<% if current_user && current_user.admin? %>
   <div class="field">
     <%= f.label :user_group %><br />
     <%= f.collection_select :user_group_id, UserGroup.all.order(:name),:id,:name, include_blank: true %>
   </div>
+<% end %>
 
   <div class="field">
     <%= f.label :password %>

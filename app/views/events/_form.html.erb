@@ -22,7 +22,7 @@
 
   <div class="field">
     <%= f.label :linac_id %><br>
-    <%= f.collection_select :linac_id, Linac.all.order(:created_at),:id,:name, include_blank: false %>
+    <%= f.collection_select :linac_id, @user_group.linacs.order(:created_at),:id,:name, include_blank: false %>
   </div>
 
   <div class="field">

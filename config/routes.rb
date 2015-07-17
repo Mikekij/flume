@@ -5,6 +5,7 @@ Rails.application.routes.draw do
 
 devise_for :users do
   get '/logout',  :to => 'sessions#destroy'
+  get '/users/:id/edit', :to => edit_user_registration_path
 end
 
   resources :events
