@@ -1,12 +1,12 @@
 .graph_1_container {
-  min-height:200px;
-  background-color:#526FFF;
+  min-height:350px;
+//  background-color:#526FFF;
   padding-right:5px;
 }
 
 .graph_2_container {
-  min-height:200px;
-  background-color:#20C91C;
+  min-height:350px;
+  //background-color:#20C91C;
   padding-left:5px;
 }
 
@@ -14,4 +14,10 @@
   min-height:200px;
   background-color:#C92F30;
   margin-top:5px;
+}
+
+
+.app-title {
+  height:80px;
+  padding-top:10px;
 }
