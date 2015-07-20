@@ -1,0 +1,2 @@
+$('#delay_modal_body').replaceWith('<%= escape_javascript(render(:partial => "events/delay_stop_modal", :locals => {:event => @event })) %>');
+$('#delay_modal_footer').replaceWith('<%= escape_javascript(render(:partial => "events/delay_stop_modal_footer", :locals => {:event => @event })) %>')

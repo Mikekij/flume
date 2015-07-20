@@ -20,6 +20,9 @@ class EventsController < ApplicationController
 
   # GET /events/1/edit
   def edit
+    @user_group = current_user.user_group
+
+
   end
 
   # POST /events
@@ -46,6 +49,7 @@ class EventsController < ApplicationController
       if @event.update(event_params)
         format.html { redirect_to root_path, notice: 'Event was successfully updated.' }
         format.json { render :show, status: :ok, location: @event }
+        format.js { }
       else
         format.html { render :edit }
         format.json { render json: @event.errors, status: :unprocessable_entity }
@@ -83,7 +87,20 @@ class EventsController < ApplicationController
 
   end
 
-  def end_event_countdown
+  def stop_event_countdown
+    @event = Event.find(event_params[:event_id])
+    @event.endtime = event_params[:endtime]
+
+    respond_to do |format|
+      if @event.save
+        format.html { redirect_to root_path, notice: 'Event was successfully updated.' }
+        format.js { }
+      else
+        format.html { render :edit }
+        format.js { render :action => 'js_error.js.erb'}
+        format.json { render json: @event.errors, status: :unprocessable_entity }
+      end
+    end
 
   end
 
@@ -95,6 +112,6 @@ class EventsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def event_params
-      params.require(:event).permit(:starttime, :endtime, :duration, :linac_id, :created_by_user_id, :description)
+      params.require(:event).permit(:starttime, :endtime, :duration, :linac_id, :created_by_user_id, :description, :event_id)
     end
 end

@@ -1,6 +1,7 @@
 class Event < ActiveRecord::Base
 
   before_create :calculate_duration
+  before_save :calculate_duration
 
   belongs_to :linac
 

@@ -15,9 +15,9 @@
       <tr>
         <td><%= Linac.find(event.linac_id).name %></td>
         <td><%= event.starttime.strftime("%H:%M %m/%d/%y") %></td>
-        <td><%= event.duration / 60 unless event.duration.nil? %></td>
-        <% @user = User.find(event.created_by_user_id) %>
-        <td><%= @user.first_name %> <%= @user.last_name %></td>
+        <td><%= number_with_precision(event.duration.to_f / 60, :precision => 1) unless event.duration.nil? %></td>
+        <% @user = User.find(event.created_by_user_id) unless event.created_by_user_id.nil? %>
+        <td><%= @user.first_name unless @user.nil? %> <%= @user.last_name unless @user.nil? %></td>
         <td><%= event.description %></td>
         <td><%= link_to 'Show', event %></td>
         <td><%= link_to 'Edit', edit_event_path(event) %></td>

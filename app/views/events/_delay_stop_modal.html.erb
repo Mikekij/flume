@@ -1,0 +1,30 @@
+<div class="modal-body" id="delay_modal_body">
+
+
+  <div id="delay_stop_modal_div">
+    Started delay for linac <b><%= event.linac.name %></b>. Press Stop button when linac is again operational. Start time: <%= event.starttime.strftime("%I:%M %p") %>
+  </div>
+
+  <%= form_for(event, :method => "post", :url => url_for(:controller => 'events', :action => 'stop_event_countdown'), :remote => true, :authenticity_token => true) do |f| %>
+    <% if event.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(event.errors.count, "error") %> prohibited this event from being saved:</h2>
+
+        <ul>
+        <% event.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+        </ul>
+      </div>
+    <% end %>
+      <%= f.hidden_field(:event_id, :value => event.id) %>
+      <%= f.hidden_field(:endtime, :value => DateTime.now) %>
+      <%= f.hidden_field(:linac_id, :value => event.linac_id) %>
+
+    <div class="actions">
+      <%= f.submit "Stop", :class => "btn btn-danger" %>
+    </div>
+  <% end %>
+  </div>
+
+</div>

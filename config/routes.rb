@@ -14,6 +14,7 @@ end
   resources :user_groups
 
   post '/events/start_event_countdown',  :to => 'events#start_event_countdown'
+  post '/events/stop_event_countdown',  :to => 'events#stop_event_countdown'
 
 
   # The priority is based upon order of creation: first created -> highest priority.
