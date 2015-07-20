@@ -1,0 +1,72 @@
+<div class="modal fade" id="event_modal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">Modal title</h4>
+      </div>
+      <div class="modal-body">
+        <%= form_for(@new_event, :url => url_for(:controller => 'events', :action => 'start_event_countdown'), :remote => true, :authenticity_token => true) do |f| %>
+          <% if @new_event.errors.any? %>
+            <div id="error_explanation">
+              <h2><%= pluralize(@new_event.errors.count, "error") %> prohibited this event from being saved:</h2>
+
+              <ul>
+              <% @event.errors.full_messages.each do |message| %>
+                <li><%= message %></li>
+              <% end %>
+              </ul>
+            </div>
+          <% end %>
+
+          <div class="field">
+            <%= f.hidden_field(:starttime, :value => DateTime.now) %>
+          </div>
+          <div class="field">
+            <%= f.label :linac_id %><br>
+            <%= f.collection_select :linac_id, @user_group.linacs.order(:created_at),:id,:name, include_blank: false %>
+          </div>
+          <div class="field">
+            <%= f.label :description %><br>
+            <%= f.text_area :description %>
+          </div>
+          <div class="actions">
+            <%= f.submit %>
+          </div>
+        <% end %>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+        <button type="button" class="btn btn-default" id="test_button">Test</button>
+
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+
+<script>
+
+$("#test_button").click(function() {
+  return $.ajax({
+    type: "POST",
+    url: "/events/start_event_countdown",
+    data: {
+      event: {
+        linac_id: 1,
+        description: "whatever"
+      }
+    },
+    success: function(data) {
+      alert(data.id);
+      return false;
+    },
+    error: function(data) {
+      return false;
+    }
+  });
+});
+
+
+</script>

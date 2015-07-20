@@ -2,7 +2,7 @@ class Linac < ActiveRecord::Base
 
   has_many :events
   belongs_to :user_group
-  
+
 
   def format_events_data
     #init blank results array
@@ -16,8 +16,10 @@ class Linac < ActiveRecord::Base
     events = self.events
 
     events.each do |e|
-      this_events_data = [e.starttime.to_i * 1000,e.duration / 60] #this encodes starttime in epoch seconds to milliseconds, and duration in min
-      events_data << this_events_data
+      if !e.duration.nil?
+        this_events_data = [e.starttime.to_i * 1000,e.duration / 60] #this encodes starttime in epoch seconds to milliseconds, and duration in min
+        events_data << this_events_data
+      end
     end
 
     results << events_data
@@ -33,11 +35,11 @@ class Linac < ActiveRecord::Base
     total_downtime = 0
 
     self.events.each do |e|
-      this_linacs_downtime = this_linacs_downtime + e.duration
+      this_linacs_downtime = this_linacs_downtime + e.duration unless e.duration.nil?
     end
 
     @events.each do |e|
-      total_downtime = total_downtime + e.duration
+      total_downtime = total_downtime + e.duration unless e.duration.nil?
     end
 
     return (this_linacs_downtime.to_f / total_downtime.to_f) * 100

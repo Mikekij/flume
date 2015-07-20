@@ -15,7 +15,7 @@
       <tr>
         <td><%= Linac.find(event.linac_id).name %></td>
         <td><%= event.starttime.strftime("%H:%M %m/%d/%y") %></td>
-        <td><%= event.duration / 60 %></td>
+        <td><%= event.duration / 60 unless event.duration.nil? %></td>
         <% @user = User.find(event.created_by_user_id) %>
         <td><%= @user.first_name %> <%= @user.last_name %></td>
         <td><%= event.description %></td>

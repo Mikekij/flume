@@ -1,3 +1,5 @@
+<%= render :partial => "events/delay_modal" %>
+
   <div class=row>
     <div class="col-md-6" id="graph_1_column">
       <h2>Timeline</h2>
@@ -18,6 +20,13 @@
     </div><!--/.col-md-12-->
     <div class="col-md-12" id="events_table">
       <div class="bottom-nav-link-right"><%= link_to "Create an Event", new_event_path, :class => "btn btn-mini btn-success" %></div>
+
+      <!-- Button trigger modal -->
+      <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#event_modal">
+        Event modal
+      </button>
+
+
     </div><!--/.col-md-12-->
   </div>
 

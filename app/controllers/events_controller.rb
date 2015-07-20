@@ -63,6 +63,30 @@ class EventsController < ApplicationController
     end
   end
 
+  def start_event_countdown
+    @event = Event.new(event_params)
+#    @event.starttime = DateTime.now
+    #@event.linac_id = params[:linac_id]
+    @event.created_by_user_id = current_user.id
+    #@event.description = params[:description]
+
+    respond_to do |format|
+      if @event.save
+        format.html { redirect_to root_path, notice: 'Event was successfully updated.' }
+        format.js { }
+      else
+        format.html { render :edit }
+        format.js { render :action => 'js_error.js.erb'}
+        format.json { render json: @event.errors, status: :unprocessable_entity }
+      end
+    end
+
+  end
+
+  def end_event_countdown
+
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_event

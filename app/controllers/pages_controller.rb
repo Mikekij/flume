@@ -4,7 +4,7 @@ class PagesController < ApplicationController
   def index
 
     @user_group = current_user.user_group
-
+    @new_event = Event.new
   #  @events = Event.all.order('created_at DESC')
   #  @events = @user_group.linacs.joins(:events).where(:events => {linac_id => params[:id]})
 
