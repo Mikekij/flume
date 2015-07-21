@@ -16,9 +16,9 @@ class PagesController < ApplicationController
     end
 
     if current_user.admin?
-      @events = Event.all.order('starttime DESC')
+      @events = Event.all.order('starttime DESC').paginate(:page => params[:page] || 1, :per_page => 10)
     else
-      @events = @user_group.events.order('starttime DESC')
+      @events = @user_group.events.order('starttime DESC').paginate(:page => params[:page] || 1, :per_page => 10)
     end
 
     @events_data_array = []
@@ -29,6 +29,12 @@ class PagesController < ApplicationController
     end
 
     @pareto_data = Event.pareto_data(@events)
+    @area_data = []
+
+    @linacs.each do |l|
+      linac_data = Event.area_data(l)
+      @area_data << linac_data
+    end
 
     @linac_array = []
 

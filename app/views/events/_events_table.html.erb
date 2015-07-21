@@ -14,7 +14,7 @@
     <% @events.each do |event| %>
       <tr>
         <td><%= Linac.find(event.linac_id).name %></td>
-        <td><%= event.starttime.strftime("%H:%M %m/%d/%y") %></td>
+        <td><%= event.starttime.strftime("%m/%d/%y %I:%M %p") %></td>
         <td><%= number_with_precision(event.duration.to_f / 60, :precision => 1) unless event.duration.nil? %></td>
         <% @user = User.find(event.created_by_user_id) unless event.created_by_user_id.nil? %>
         <td><%= @user.first_name unless @user.nil? %> <%= @user.last_name unless @user.nil? %></td>
@@ -26,3 +26,4 @@
     <% end %>
   </tbody>
 </table>
+<%= will_paginate @events, :page_links => false %>

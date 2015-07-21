@@ -21,6 +21,9 @@ gem 'devise'
 gem 'bootstrap-sass'
 gem 'sprockets-rails'
 
+#pagination
+gem 'will_paginate'
+
 #graphing with highcharts
 gem 'highcharts-rails'
 

@@ -6,7 +6,7 @@
       <div class="graph_1_container" id="graph_1_container"></div>
     </div><!--/.col-md-6-->
     <div class="col-md-6" id="graph_2_column">
-      <h2>Failures</h2>
+      <h2>Failure Durations</h2>
       <div class="graph_2_container"  id="graph_2_container"></div>
     </div><!--/.col-md-6-->
   </div>
@@ -15,7 +15,7 @@
     <div class="col-md-12" id="events_table">
       <h2>Events</h2>
       <div class="events_div">
-        <%= render :partial => "events/events_table" %>
+        <%= render :partial => "events/events_table", :locals => {:events => @events } %>
       </div>
     </div><!--/.col-md-12-->
     <div class="col-md-12" id="events_table">
@@ -44,104 +44,9 @@
 
 
 
+<%= render :partial => "pages/area_graph", :locals => {:linac_array => @linac_array, :pareto_data => @pareto_data, :area_data => @area_data} %>
+
 <script>
-
-var color_array = ['#92CA8A', '#4FA8C7', '#393939', '#5D5D5D', '#A2A2A2', '#F7F7F7']
-
-var linac_array = <%= @linac_array.to_json.html_safe %>;
-
-function colorAssigner(linac_name) {
-          var index_number = linac_array.indexOf(linac_name);
-          new_index_number = adjustIndex(index_number);
-          return color_array[new_index_number];
-};
-
-function adjustIndex(index_value, array_length) {
-  while (index_value > array_length) {
-    index_value = index_value - array_length;
-  }
-  return index_value
-};
-
-
-var chart;
-$(document).ready(function () {
-    chart = new Highcharts.Chart({
-        chart: {
-            renderTo: 'graph_2_container'
-        },
-        credits: {
-            enabled: false
-        },
-        legend: {
-            layout: 'horizontal',
-            verticalAlign: 'bottom',
-            enabled: false
-        },
-        title: {
-            text: ''
-        },
-        tooltip: {
-            formatter: function () {
-                if (this.series.name == 'Accumulated') {
-                    return this.y.toFixed(2) + '%';
-                }
-                return this.point.name + '<br/>' + '<b> ' + this.y.toString().replace('.', ',') + ' min </b>';
-            }
-        },
-        xAxis: {
-          type: 'category',
-            labels: {
-                rotation: -45,
-              },
-        },
-        yAxis: [{
-            title: {
-                text: 'Downtime (min)'
-            }
-        }, {
-            labels: {
-                formatter: function () {
-                    return this.value + '%';
-                }
-            },
-            max: 100,
-            min: 0,
-            opposite: true,
-            plotLines: [],
-            title: {
-                text: '% of Total Downtime'
-            }
-        }],
-        series: [{
-            data: [
-              <% @pareto_data[0].each do |p| %>
-                {
-                  y: <%= p[2] %>,
-                  name: '<%= p[0] %>',
-                  color: colorAssigner('<%= p[0] %>')
-                },
-              <% end %>
-            ],
-            name: 'Options',
-            type: 'column'
-        }, {
-            data: [
-              <% @pareto_data[1].each do |p| %>
-              {
-                y: <%= p[1] %>,
-              },
-              <% end %>
-            ],
-            name: 'Accumulated',
-            type: 'spline',
-            yAxis: 1,
-            id: 'accumulated'
-        }]
-    });
-});
-
-
 $(function () {
     $('#graph_1_container').highcharts({
         chart: {
@@ -182,8 +87,11 @@ $(function () {
             useHTML: true
         },
         plotOptions: {
+            series: {
+              pointWidth: 4
+            },
             column: {
-                pointPadding: 0.2,
+                pointPadding: 2,
                 borderWidth: 0
             }
         },

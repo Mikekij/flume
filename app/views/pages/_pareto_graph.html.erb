@@ -1,0 +1,102 @@
+<% @pareto_data = pareto_data %>
+<% @linac_array = linac_array %>
+
+
+
+<script>
+
+var color_array = ['#92CA8A', '#4FA8C7', '#393939', '#5D5D5D', '#A2A2A2', '#F7F7F7']
+
+var linac_array = <%= @linac_array.to_json.html_safe %>;
+
+function colorAssigner(linac_name) {
+          var index_number = linac_array.indexOf(linac_name);
+          new_index_number = adjustIndex(index_number);
+          return color_array[new_index_number];
+};
+
+function adjustIndex(index_value, array_length) {
+  while (index_value > array_length) {
+    index_value = index_value - array_length;
+  }
+  return index_value
+};
+
+
+var chart;
+$(document).ready(function () {
+    chart = new Highcharts.Chart({
+        chart: {
+            renderTo: 'graph_2_container'
+        },
+        credits: {
+            enabled: false
+        },
+        legend: {
+            layout: 'horizontal',
+            verticalAlign: 'bottom',
+            enabled: false
+        },
+        title: {
+            text: ''
+        },
+        tooltip: {
+            formatter: function () {
+                if (this.series.name == 'Accumulated') {
+                    return this.y.toFixed(2) + '%';
+                }
+                return this.point.name + '<br/>' + '<b> ' + this.y.toString().replace('.', ',') + ' min </b>';
+            }
+        },
+        xAxis: {
+          type: 'category',
+            labels: {
+                rotation: -45,
+              },
+        },
+        yAxis: [{
+            title: {
+                text: 'Downtime (min)'
+            }
+        }, {
+            labels: {
+                formatter: function () {
+                    return this.value + '%';
+                }
+            },
+            max: 100,
+            min: 0,
+            opposite: true,
+            plotLines: [],
+            title: {
+                text: '% of Total Downtime'
+            }
+        }],
+        series: [{
+            data: [
+              <% @pareto_data[0].each do |p| %>
+                {
+                  y: <%= p[2] %>,
+                  name: '<%= p[0] %>',
+                  color: colorAssigner('<%= p[0] %>')
+                },
+              <% end %>
+            ],
+            name: 'Options',
+            type: 'column'
+        }, {
+            data: [
+              <% @pareto_data[1].each do |p| %>
+              {
+                y: <%= p[1] %>,
+              },
+              <% end %>
+            ],
+            name: 'Accumulated',
+            type: 'spline',
+            yAxis: 1,
+            id: 'accumulated'
+        }]
+    });
+});
+</script>

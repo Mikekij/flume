@@ -1,5 +1,3 @@
 <% @linacs.each do |l| %>
-<div class="stats_div"><%= l.name %> (<%= number_with_precision(l.downtime_percentage, :precision => 2) %>)</div>
-
-
+  <div class="stats_div"><%= l.name %> (<%= number_with_precision(l.downtime_percentage, :precision => 2) %>)</div>
 <% end %>
