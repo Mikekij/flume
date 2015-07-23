@@ -2,11 +2,11 @@
 
   <div class=row>
     <div class="col-md-6" id="graph_1_column">
-      <h2>Timeline</h2>
+      <a href="<%= timeline_graph_path %>"><h2>Timeline</h2></a>
       <div class="graph_1_container" id="graph_1_container"></div>
     </div><!--/.col-md-6-->
     <div class="col-md-6" id="graph_2_column">
-      <h2>Failure Durations</h2>
+      <a href="<%= area_graph_path %>"><h2>Failure Durations</h2></a>
       <div class="graph_2_container"  id="graph_2_container"></div>
     </div><!--/.col-md-6-->
   </div>
@@ -18,14 +18,16 @@
         <%= render :partial => "events/events_table", :locals => {:events => @events } %>
       </div>
     </div><!--/.col-md-12-->
+  </div>
+
+  <div class="row spaced-row">
     <div class="col-md-12" id="events_table">
       <div class="bottom-nav-link-right"><%= link_to "Create an Event", new_event_path, :class => "btn btn-mini btn-success" %></div>
 
       <!-- Button trigger modal -->
-      <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#event_modal">
+      <button type="button" class="btn btn-primary btn-mini" data-toggle="modal" data-target="#event_modal">
         Event modal
       </button>
-
 
     </div><!--/.col-md-12-->
   </div>
@@ -45,65 +47,4 @@
 
 
 <%= render :partial => "pages/area_graph", :locals => {:linac_array => @linac_array, :pareto_data => @pareto_data, :area_data => @area_data} %>
-
-<script>
-$(function () {
-    $('#graph_1_container').highcharts({
-        chart: {
-            type: 'column'
-        },
-        credits: {
-            enabled: false
-        },
-        title: {
-            text: '',
-            style : {
-              display : 'none'
-            }
-        },
-        subtitle: {
-            text: '',
-            style : {
-              display : 'none'
-            }
-        },
-        xAxis: {
-          type: 'datetime',
-          minPadding: 0.10,
-          maxPadding: 0.05,
-        },
-        yAxis: {
-            min: 0,
-            title: {
-                text: 'Downtime Duration (min)'
-            }
-        },
-        tooltip: {
-            headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
-            pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
-                '<td style="padding:0"><b>{point.y:.1f} mm</b></td></tr>',
-            footerFormat: '</table>',
-            shared: true,
-            useHTML: true
-        },
-        plotOptions: {
-            series: {
-              pointWidth: 4
-            },
-            column: {
-                pointPadding: 2,
-                borderWidth: 0
-            }
-        },
-        series: [
-        <% @events_data_array.each do |e| %>
-        {
-            name: '<%= e[0] %>',
-            color: colorAssigner('<%= e[0] %>'),
-            data:  <%= e[1] %>,
-        },
-        <% end %>
-      ]
-    });
-});
-</script>
+<%= render :partial => "pages/timeline_graph", :locals => {:events_data_array => @events_data_array, :linac_array => @linac_array, :pareto_data => @pareto_data, :area_data => @area_data} %>

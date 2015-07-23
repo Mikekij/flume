@@ -6,8 +6,24 @@ $f-grey: #5D5D5D;
 $f-light-grey: #A2A2A2;
 $f-almost-white: #F7F7F7;
 
-h1 {
+body {
 	color:$f-grey;
+}
+
+h1, h2, h3, h4 {
+	color:$f-grey;
+}
+
+a > h2 {
+	color:$f-grey;
+}
+
+a:hover {
+    text-decoration: none;
+}
+
+.spaced-row {
+	padding-top:10px;
 }
 
 .main-container {
@@ -17,6 +33,12 @@ h1 {
   min-height:350px;
 //  background-color:#526FFF;
   padding-right:5px;
+}
+
+.timeline_graph_container {
+	min-height:550px;
+//  background-color:#526FFF;
+	padding-right:5px;
 }
 
 .graph_2_container {
@@ -58,4 +80,8 @@ h1 {
 	padding-top:20px;
 	padding-bottom:20px;
 	margin-bottom:20px;
+}
+
+#delay_stop_modal_div {
+	padding-bottom:15px;
 }

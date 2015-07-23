@@ -16,6 +16,9 @@ end
   post '/events/start_event_countdown',  :to => 'events#start_event_countdown'
   post '/events/stop_event_countdown',  :to => 'events#stop_event_countdown'
 
+  get '/timeline_graph',  :to => 'pages#timeline_graph'
+  get '/area_graph',  :to => 'pages#area_graph'
+
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

@@ -1,0 +1,12 @@
+<div class=row>
+  <div class="col-lg-12" id="graph_1_column">
+    <a href="<%= timeline_graph_path %>"><h2>Timeline</h2></a>
+    <div class="timeline_graph_container" id="graph_1_container"></div>
+  </div><!--/.col-md-6-->
+</div>
+
+<%= render :partial => "pages/timeline_graph", :locals => {:events_data_array => @events_data_array, :linac_array => @linac_array, :pareto_data => @pareto_data, :area_data => @area_data} %>
+
+<div class=row>
+  <%= render :partial => "layouts/bottom_nav" %>
+</div><!-- /.row -->

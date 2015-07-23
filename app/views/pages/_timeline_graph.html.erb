@@ -1,0 +1,83 @@
+<% @linac_array = linac_array %>
+<% @events_data_array = events_data_array %>
+
+<script>
+var color_array = ['#92CA8A', '#4FA8C7', '#393939', '#5D5D5D', '#A2A2A2', '#F7F7F7']
+
+var linac_array = <%= @linac_array.to_json.html_safe %>;
+
+function colorAssigner(linac_name) {
+          var index_number = linac_array.indexOf(linac_name);
+          new_index_number = adjustIndex(index_number);
+          return color_array[new_index_number];
+};
+
+function adjustIndex(index_value, array_length) {
+  while (index_value > array_length) {
+    index_value = index_value - array_length;
+  }
+  return index_value
+};
+
+
+$(function () {
+    $('#graph_1_container').highcharts({
+        chart: {
+            type: 'column',
+            zoomType: 'x'
+        },
+        credits: {
+            enabled: false
+        },
+        title: {
+            text: '',
+            style : {
+              display : 'none'
+            }
+        },
+        subtitle: {
+            text: '',
+            style : {
+              display : 'none'
+            }
+        },
+        xAxis: {
+          type: 'datetime',
+          maxPadding: 0.05,
+          minPadding: 0.05,
+        },
+        yAxis: {
+            min: 0,
+            title: {
+                text: 'Downtime Duration (min)'
+            }
+        },
+        tooltip: {
+            headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+            pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+                '<td style="padding:0"><b>{point.y:.1f} min</b></td></tr>',
+            footerFormat: '</table>',
+            shared: true,
+            useHTML: true
+        },
+        plotOptions: {
+            series: {
+              pointWidth: 4
+            },
+            column: {
+                pointPadding: 1,
+                borderWidth: 0
+            }
+        },
+        series: [
+        <% @events_data_array.each do |e| %>
+        {
+            name: '<%= e[0] %>',
+            color: colorAssigner('<%= e[0] %>'),
+            data:  <%= e[1] %>,
+        },
+        <% end %>
+      ]
+    });
+});
+</script>

@@ -13,7 +13,7 @@ class Linac < ActiveRecord::Base
     results << self.name
 
     #get all the events for this linac
-    events = self.events
+    events = self.events.order('starttime ASC')
 
     events.each do |e|
       if !e.duration.nil?

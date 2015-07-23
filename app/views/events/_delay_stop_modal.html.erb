@@ -2,8 +2,21 @@
 
 
   <div id="delay_stop_modal_div">
-    Started delay for linac <b><%= event.linac.name %></b>. Press Stop button when linac is again operational. Start time: <%= event.starttime.strftime("%I:%M %p") %>
+    Started delay for linac <b><%= event.linac.name %></b>. Press Stop button when linac is again operational.<br /> Start time: <%= event.starttime.strftime("%I:%M %p") %>
+    <br />
+    <!-- clock -->
+    Downtime Duration: <span id="runner"></span>
+
   </div>
+
+
+  <script>
+    $('#runner').runner();
+
+    $( document ).ready(function() {
+      $('#runner').runner('start');
+    });
+  </script>
 
   <%= form_for(event, :method => "post", :url => url_for(:controller => 'events', :action => 'stop_event_countdown'), :remote => true, :authenticity_token => true) do |f| %>
     <% if event.errors.any? %>
